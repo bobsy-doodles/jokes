@@ -114,15 +114,15 @@
             <button class="category-btn bg-white text-blue-600 px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors" data-category="animal">Animal</button>
         </div>
 
-        <!-- Jokes Container -->
+        
         <div id="jokes-container" class="jokes-container">
-            <!-- Jokes will be dynamically inserted here -->
+            
         </div>
 
-        <!-- Pagination -->
+        
         <div class="flex justify-center mt-12">
             <div class="inline-flex rounded-md shadow-sm" id="pagination">
-                <!-- Pagination buttons will be dynamically inserted here -->
+                
             </div>
         </div>
 
@@ -177,7 +177,7 @@
         </div>
     </footer>
 
-    <!-- Admin Login Button (Hidden in plain sight) -->
+    
     <div class="fixed bottom-4 right-4 z-50">
         <button id="admin-login-btn" class="bg-gray-200 text-gray-600 p-2 rounded-full hover:bg-gray-300 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -187,7 +187,7 @@
         </button>
     </div>
 
-    <!-- Admin Mode Indicator -->
+    
     <div id="admin-mode-indicator" class="admin-mode-indicator hidden bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg">
         <div class="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -197,10 +197,10 @@
         </div>
     </div>
 
-    <!-- Notification Container -->
+    
     <div id="notification-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
 
-    <!-- Admin Login Modal -->
+    
     <div id="admin-login-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="modal-content bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 class="text-xl font-bold text-gray-800 mb-4">Admin Login</h3>
@@ -344,14 +344,14 @@
             { id: 110, setup: "What did the zero say to the eight?", punchline: "Nice belt!", category: "math", likes: 55 }
         ];
 
-        // Load jokes from localStorage or use the base jokes
+        
         let jokesData = [];
         
-        // Admin mode state
-        let isAdminMode = false;
-        const adminPassword = "jokes123"; // Change this to your desired password
         
-        // Function to initialize jokes data
+        let isAdminMode = false;
+        const adminPassword = "jokes123";
+        
+        
         function initJokesData() {
             const savedJokes = localStorage.getItem('jokesData');
             if (savedJokes) {
@@ -362,10 +362,10 @@
             }
         }
 
-        // Initialize jokes data
+        
         initJokesData();
 
-        // Check if admin mode was previously enabled
+        
         function checkAdminMode() {
             const adminModeEnabled = localStorage.getItem('adminModeEnabled');
             if (adminModeEnabled === 'true') {
@@ -374,21 +374,21 @@
             }
         }
 
-        // Check admin mode on page load
+        
         checkAdminMode();
 
         // Variables for pagination
         const jokesPerPage = 12;
         let currentPage = 1;
         let filteredJokes = [...jokesData];
-        let jokeToDelete = null; // Store the joke ID to delete
+        let jokeToDelete = null;
 
         // Function to save jokes to localStorage
         function saveJokesToLocalStorage() {
             localStorage.setItem('jokesData', JSON.stringify(jokesData));
         }
 
-        // Function to show notification
+        
         function showNotification(message, type = 'success') {
             const notificationContainer = document.getElementById('notification-container');
             
@@ -408,7 +408,7 @@
             notification.appendChild(text);
             notificationContainer.appendChild(notification);
             
-            // Remove notification after 3 seconds
+            
             setTimeout(() => {
                 notification.classList.add('hide');
                 setTimeout(() => {
@@ -417,7 +417,7 @@
             }, 3000);
         }
 
-        // Function to render jokes
+        
         function renderJokes() {
             const jokesContainer = document.getElementById('jokes-container');
             jokesContainer.innerHTML = '';
@@ -445,7 +445,7 @@
                 jokeCard.dataset.id = joke.id;
                 jokeCard.dataset.category = joke.category;
                 
-                // Only show delete button if in admin mode
+            
                 const deleteButton = isAdminMode ? `
                     <button class="delete-btn absolute top-2 right-2 text-gray-400 hover:text-red-500 p-1 rounded-full hover:bg-red-50" data-id="${joke.id}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -476,23 +476,23 @@
                 jokesContainer.appendChild(jokeCard);
             });
             
-            // Add event listeners to like buttons
+        
             document.querySelectorAll('.like-btn').forEach(btn => {
                 btn.addEventListener('click', handleLikeClick);
             });
             
-            // Add event listeners to delete buttons (only if in admin mode)
+        
             if (isAdminMode) {
                 document.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', handleDeleteClick);
                 });
             }
             
-            // Update pagination
+            
             renderPagination();
         }
 
-        // Function to render pagination
+    
         function renderPagination() {
             const pagination = document.getElementById('pagination');
             pagination.innerHTML = '';
@@ -500,10 +500,10 @@
             const totalPages = Math.ceil(filteredJokes.length / jokesPerPage);
             
             if (totalPages <= 1) {
-                return; // Don't show pagination if there's only one page
+                return;
             }
             
-            // Previous button
+            
             const prevBtn = document.createElement('button');
             prevBtn.className = 'pagination-btn px-4 py-2 border border-gray-300 rounded-l-md';
             prevBtn.textContent = '←';
@@ -517,7 +517,7 @@
             });
             pagination.appendChild(prevBtn);
             
-            // Page buttons
+            
             const maxButtons = 5;
             let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
             let endPage = Math.min(totalPages, startPage + maxButtons - 1);
@@ -538,7 +538,7 @@
                 pagination.appendChild(pageBtn);
             }
             
-            // Next button
+            
             const nextBtn = document.createElement('button');
             nextBtn.className = 'pagination-btn px-4 py-2 border border-gray-300 rounded-r-md';
             nextBtn.textContent = '→';
@@ -553,14 +553,14 @@
             pagination.appendChild(nextBtn);
         }
 
-        // Function to handle like button clicks
+        
         function handleLikeClick(e) {
             const btn = e.currentTarget;
             const jokeCard = btn.closest('.joke-card');
             const jokeId = parseInt(jokeCard.dataset.id);
             const countSpan = btn.nextElementSibling;
             
-            // Find the joke in our data
+        
             const jokeIndex = jokesData.findIndex(joke => joke.id === jokeId);
             
             if (jokeIndex === -1) return;
@@ -577,56 +577,56 @@
             
             countSpan.textContent = jokesData[jokeIndex].likes;
             
-            // Save updated likes to localStorage
+            
             saveJokesToLocalStorage();
         }
 
-        // Function to handle delete button clicks
+
         function handleDeleteClick(e) {
             const btn = e.currentTarget;
             const jokeId = parseInt(btn.dataset.id);
             
-            // Store the joke ID to delete
+    
             jokeToDelete = jokeId;
             
-            // Show confirmation modal
+        
             const modal = document.getElementById('confirmation-modal');
             modal.classList.remove('hidden');
         }
 
-        // Function to delete a joke
+    
         function deleteJoke(jokeId) {
             // Find the joke index
             const jokeIndex = jokesData.findIndex(joke => joke.id === jokeId);
             
             if (jokeIndex === -1) return;
             
-            // Get joke details for notification
+            
             const joke = jokesData[jokeIndex];
             
-            // Remove the joke from the data
+            
             jokesData.splice(jokeIndex, 1);
             
-            // Update filtered jokes
+            
             filteredJokes = filteredJokes.filter(joke => joke.id !== jokeId);
             
-            // Save to localStorage
+            
             saveJokesToLocalStorage();
             
-            // Adjust current page if needed
+            
             const totalPages = Math.ceil(filteredJokes.length / jokesPerPage);
             if (currentPage > totalPages && totalPages > 0) {
                 currentPage = totalPages;
             }
             
-            // Re-render jokes
+            
             renderJokes();
             
-            // Show notification
+    
             showNotification(`Joke "${joke.setup.substring(0, 20)}..." has been deleted.`, 'success');
         }
 
-        // Function to filter jokes by category
+        
         function filterJokesByCategory(category) {
             if (category === 'all') {
                 filteredJokes = [...jokesData];
@@ -638,7 +638,7 @@
             renderJokes();
         }
 
-        // Function to filter jokes by search term
+    
         function filterJokesBySearch(searchTerm) {
             if (!searchTerm) {
                 const activeCategory = document.querySelector('.category-btn.bg-blue-600').dataset.category;
@@ -656,7 +656,7 @@
             renderJokes();
         }
 
-        // Function to toggle admin mode
+        
         function toggleAdminMode(enable) {
             isAdminMode = enable;
             localStorage.setItem('adminModeEnabled', enable);
@@ -670,14 +670,14 @@
                 showNotification('Admin mode deactivated.', 'success');
             }
             
-            // Re-render jokes to show/hide delete buttons
+        
             renderJokes();
         }
 
-        // Event listeners for category buttons
+
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active button styling
+    
                 document.querySelectorAll('.category-btn').forEach(b => {
                     b.classList.remove('bg-blue-600', 'text-white');
                     b.classList.add('bg-white', 'text-blue-600');
@@ -686,23 +686,23 @@
                 btn.classList.remove('bg-white', 'text-blue-600');
                 btn.classList.add('bg-blue-600', 'text-white');
                 
-                // Filter jokes by category
+            
                 filterJokesByCategory(btn.dataset.category);
             });
         });
 
-        // Event listener for search input
+        
         const searchInput = document.getElementById('search-input');
         searchInput.addEventListener('input', () => {
             filterJokesBySearch(searchInput.value);
         });
 
-        // Event listener for category filter dropdown
+        
         const categoryFilter = document.getElementById('category-filter');
         categoryFilter.addEventListener('change', () => {
             const category = categoryFilter.value;
             
-            // Update active button styling
+            
             document.querySelectorAll('.category-btn').forEach(btn => {
                 if (btn.dataset.category === category) {
                     btn.click();
@@ -721,14 +721,14 @@
             const randomIndex = Math.floor(Math.random() * jokesData.length);
             const randomJoke = jokesData[randomIndex];
             
-            // Find which page the joke is on
+        
             const jokeIndex = filteredJokes.findIndex(joke => joke.id === randomJoke.id);
             
             if (jokeIndex !== -1) {
                 currentPage = Math.floor(jokeIndex / jokesPerPage) + 1;
                 renderJokes();
                 
-                // Highlight the joke
+                
                 setTimeout(() => {
                     const jokeCard = document.querySelector(`.joke-card[data-id="${randomJoke.id}"]`);
                     if (jokeCard) {
@@ -740,7 +740,7 @@
                     }
                 }, 100);
             } else {
-                // If the joke isn't in the filtered list, reset filters
+            
                 document.querySelector('.category-btn[data-category="all"]').click();
                 setTimeout(() => {
                     const jokeCard = document.querySelector(`.joke-card[data-id="${randomJoke.id}"]`);
@@ -755,7 +755,7 @@
             }
         });
 
-        // Form submission - fully functional with localStorage persistence
+        
         const jokeForm = document.getElementById('joke-form');
         jokeForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -765,11 +765,11 @@
             const category = document.getElementById('joke-category').value;
             
             if (setup && punchline) {
-                // Generate a unique ID (higher than any existing ID)
+                
                 const maxId = jokesData.reduce((max, joke) => Math.max(max, joke.id), 0);
                 const newId = maxId + 1;
                 
-                // Create new joke
+        
                 const newJoke = {
                     id: newId,
                     setup,
@@ -778,25 +778,25 @@
                     likes: 0
                 };
                 
-                // Add to jokes data at the beginning
+            
                 jokesData.unshift(newJoke);
                 
-                // Save to localStorage
+                
                 saveJokesToLocalStorage();
                 
-                // Reset form
+            
                 jokeForm.reset();
                 
-                // Show success message
+        
                 showNotification('Your joke has been added to the collection!', 'success');
                 
-                // Refresh jokes display and scroll to the new joke
+        
                 document.querySelector('.category-btn[data-category="all"]').click();
                 
-                // Scroll to the top where the new joke will appear
+                
                 window.scrollTo({ top: document.querySelector('#jokes-container').offsetTop - 20, behavior: 'smooth' });
                 
-                // Highlight the new joke
+        
                 setTimeout(() => {
                     const newJokeCard = document.querySelector(`.joke-card[data-id="${newJoke.id}"]`);
                     if (newJokeCard) {
@@ -807,14 +807,14 @@
                     }
                 }, 300);
             } else {
-                // Show error message for missing fields
+        
                 const emptyFields = [];
                 if (!setup) emptyFields.push('setup');
                 if (!punchline) emptyFields.push('punchline');
                 
                 showNotification(`Please fill in the ${emptyFields.join(' and ')} fields.`, 'error');
                 
-                // Highlight empty fields
+            
                 if (!setup) {
                     const setupInput = document.getElementById('joke-setup');
                     setupInput.classList.add('ring-2', 'ring-red-500');
@@ -835,19 +835,19 @@
             }
         });
 
-        // Admin login button
+
         const adminLoginBtn = document.getElementById('admin-login-btn');
         adminLoginBtn.addEventListener('click', () => {
             if (isAdminMode) {
-                // If already in admin mode, log out
+        
                 toggleAdminMode(false);
             } else {
-                // Show login modal
+                
                 document.getElementById('admin-login-modal').classList.remove('hidden');
             }
         });
 
-        // Admin login form
+        
         const adminLoginForm = document.getElementById('admin-login-form');
         adminLoginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -856,19 +856,19 @@
             const password = passwordInput.value;
             
             if (password === adminPassword) {
-                // Hide modal
+        
                 document.getElementById('admin-login-modal').classList.add('hidden');
                 
-                // Enable admin mode
+        
                 toggleAdminMode(true);
                 
-                // Clear password field
+        
                 passwordInput.value = '';
             } else {
-                // Show error
+            
                 showNotification('Incorrect password. Please try again.', 'error');
                 
-                // Highlight password field
+        
                 passwordInput.classList.add('ring-2', 'ring-red-500');
                 passwordInput.addEventListener('input', function removeHighlight() {
                     passwordInput.classList.remove('ring-2', 'ring-red-500');
@@ -877,14 +877,14 @@
             }
         });
 
-        // Cancel login button
+        
         const cancelLoginBtn = document.getElementById('cancel-login');
         cancelLoginBtn.addEventListener('click', () => {
             document.getElementById('admin-login-modal').classList.add('hidden');
             document.getElementById('admin-password').value = '';
         });
 
-        // Confirmation modal event listeners
+        
         const confirmDeleteBtn = document.getElementById('confirm-delete');
         const cancelDeleteBtn = document.getElementById('cancel-delete');
         const confirmationModal = document.getElementById('confirmation-modal');
@@ -902,7 +902,7 @@
             confirmationModal.classList.add('hidden');
         });
 
-        // Close modals when clicking outside
+        
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
@@ -914,12 +914,12 @@
             });
         });
 
-        // Admin mode indicator click to logout
+
         document.getElementById('admin-mode-indicator').addEventListener('click', () => {
             toggleAdminMode(false);
         });
 
-        // Initialize the page
+    
         renderJokes();
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963ead9b53c7714a',t:'MTc1MzMxMDQxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
