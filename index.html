@@ -364,20 +364,23 @@
         const adminPassword = "jokes123";
         
         
+
+
         function initJokesData() {
-            const savedJokes = localStorage.getItem('jokesData');
-            if (savedJokes) {
-                jokesData = JSON.parse(savedJokes);
-            } else {
-                jokesData = [...baseJokesData];
-                localStorage.setItem('jokesData', JSON.stringify(jokesData));
-            }
+            jokesData = [...baseJokesData];
+            localStorage.setItem('jokesData', JSON.stringify(jokesData));
         }
+
+
+		
 
         
         initJokesData();
 
-        
+
+
+
+		
         function checkAdminMode() {
             const adminModeEnabled = localStorage.getItem('adminModeEnabled');
             if (adminModeEnabled === 'true') {
