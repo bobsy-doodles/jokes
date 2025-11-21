@@ -367,14 +367,17 @@
 
 
         function initJokesData() {
-            jokesData = [...baseJokesData];
-            localStorage.setItem('jokesData', JSON.stringify(jokesData));
+            const savedJokes = localStorage.getItem('jokesData');
+            if (savedJokes) {
+                jokesData = JSON.parse(savedJokes);
+            } else {
+                jokesData = [...baseJokesData];
+                localStorage.setItem('jokesData', JSON.stringify(jokesData));
+            }
         }
 
 
 		
-
-        
         initJokesData();
 
 
