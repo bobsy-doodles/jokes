@@ -775,27 +775,7 @@
         });
 
         
-        const jokeForm = document.getElementById('joke-form');
-        jokeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const setup = document.getElementById('joke-setup').value.trim();
-            const punchline = document.getElementById('joke-punchline').value.trim();
-            const category = document.getElementById('joke-category').value;
-            
-            if (setup && punchline) {
-                
-                const maxId = jokesData.reduce((max, joke) => Math.max(max, joke.id), 0);
-                const newId = maxId + 1;
-                
-        
-                const newJoke = {
-                    id: newId,
-                    setup,
-                    punchline,
-                    category,
-                    likes: 0
-                };
+
                 
             
                 jokesData.unshift(newJoke);
