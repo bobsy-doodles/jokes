@@ -783,9 +783,9 @@
         });
 
         // Handle joke form submission
-        
+        const jokeForm = document.querySelector('form[action="https://www.response-o-matic.com/mail.php"]');
         jokeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+
             
             const setup = document.getElementById('joke-setup').value.trim();
             const punchline = document.getElementById('joke-punchline').value.trim();
