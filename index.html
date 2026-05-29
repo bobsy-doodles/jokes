@@ -792,10 +792,6 @@
             const category = document.getElementById('joke-category').value;
             
             if (setup && punchline) {
-                // Set the complete joke field
-                const completeJoke = `Setup: ${setup}\n\nPunchline: ${punchline}`;
-                document.getElementById('complete-joke').value = completeJoke;
-    
                 const newJoke = {
                     id: Math.max(...jokesData.map(j => j.id), 0) + 1,
                     setup: setup,
