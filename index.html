@@ -784,7 +784,8 @@
 
         // Handle joke form submission
         const jokeForm = document.getElementById('joke-form');
-        jokeForm.addEventListener('submit', (e) => 
+        jokeForm.addEventListener('submit', (e) => {
+			e.preventDefault();
 
             
             const setup = document.getElementById('joke-setup').value.trim();
