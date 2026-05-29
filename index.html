@@ -151,7 +151,7 @@
         <!-- Submit Joke Section -->
         <div class="mt-16 bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
             <h2 class="text-2xl font-bold text-blue-800 mb-4">Submit Your Joke</h2>
-            <form enctype="multipart/form-data" method="post" action="https://www.response-o-matic.com/mail.php" accept-charset="UTF-8">
+            <form id="joke-form" enctype="multipart/form-data" method="post" action="https://www.response-o-matic.com/mail.php" accept-charset="UTF-8">
 	           <div>
 		           <input type="hidden" name="acctid" id="acctid" value="v268oxi8ol3ycxc2" />
 	               <input type="hidden" name="formid" id="formid" value="2006733" />
@@ -180,7 +180,6 @@
                     </select>
                 </div>
                 <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">Submit Joke</button>
-				<id="joke-form">
             </form>
         </div>
     </div>
