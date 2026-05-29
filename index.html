@@ -155,6 +155,7 @@
 	           <div>
 		           <input type="hidden" name="acctid" id="acctid" value="v268oxi8ol3ycxc2" />
 	               <input type="hidden" name="formid" id="formid" value="2006733" />
+				   <input type="hidden" id="complete-joke" name="complete-joke" />
 	           </div>
                 <div class="mb-4">
                     <label for="joke-setup" class="block text-gray-700 mb-2">Setup</label>
@@ -784,7 +785,7 @@
 
         // Handle joke form submission
         const jokeForm = document.querySelector('form[action="https://www.response-o-matic.com/mail.php"]');
-        jokeForm.addEventListener('submit', (e) => {
+        jokeForm.addEventListener('submit', (e) => 
 
             
             const setup = document.getElementById('joke-setup').value.trim();
@@ -792,6 +793,10 @@
             const category = document.getElementById('joke-category').value;
             
             if (setup && punchline) {
+                // Set the complete joke field
+                const completeJoke = `Setup: ${setup}\n\nPunchline: ${punchline}`;
+                document.getElementById('complete-joke').value = completeJoke;
+    
                 const newJoke = {
                     id: Math.max(...jokesData.map(j => j.id), 0) + 1,
                     setup: setup,
