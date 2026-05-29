@@ -784,6 +784,22 @@
 
         // Handle joke form submission
 
+        jokeForm.addEventListener('submit', (e) => {
+			e.preventDefault();
+
+            
+            const setup = document.getElementById('joke-setup').value.trim();
+            const punchline = document.getElementById('joke-punchline').value.trim();
+            const category = document.getElementById('joke-category').value;
+            
+            if (setup && punchline) {
+                const newJoke = {
+                    id: Math.max(...jokesData.map(j => j.id), 0) + 1,
+                    setup: setup,
+                    punchline: punchline,
+                    category: category,
+                    likes: 0
+                };
                 
                 jokesData.unshift(newJoke);
                 
