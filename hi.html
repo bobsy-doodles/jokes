@@ -123,24 +123,28 @@
                 <div class="bg-white rounded-xl shadow-lg p-8">
                     <h2 class="text-2xl font-bold text-gray-800 mb-6">Send us a Message</h2>
                     <form id="contact-form">
+                        <div>
+                            <input type="hidden" name="acctid" id="acctid" value="v268oxi8ol3ycxc2" />
+                            <input type="hidden" name="formid" id="formid" value="2006734" />
+                        </div>
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placehold[...]
+                            <input type="text" id="name" name="name" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="John Doe" required>
                         </div>
 
                         <div class="mb-4">
                             <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
-                            <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeh[...]
+                            <input type="email" id="email" name="email" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="your@email.com" required>
                         </div>
 
                         <div class="mb-4">
                             <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" pla[...]
+                            <input type="text" id="subject" name="subject" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Your subject here" required>
                         </div>
 
                         <div class="mb-4">
                             <label for="subject-category" class="block text-gray-700 font-medium mb-2">Inquiry Type</label>
-                            <select id="subject-category" name="subject-category" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-6[...]
+                            <select id="subject-category" name="subject-category" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" required>
                                 <option value="feedback">Feedback</option>
                                 <option value="bug">Bug Report</option>
                                 <option value="feature">Feature Request</option>
@@ -151,10 +155,10 @@
 
                         <div class="mb-6">
                             <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                            <textarea id="message" name="message" rows="5" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resi[...]
+                            <textarea id="message" name="message" rows="5" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none" placeholder="Your message here..." required></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-[...]
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                             Send Message
                         </button>
                     </form>
@@ -246,8 +250,8 @@
             const icon = document.createElement('div');
             icon.className = 'mr-3';
             icon.innerHTML = type === 'success' 
-                ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d[...]
-                : '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d[...]
+                ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
             
             const text = document.createElement('div');
             text.textContent = message;
@@ -277,6 +281,8 @@
             if (name && email && subject && message) {
                 // Prepare form data for external service
                 const formData = new FormData();
+                formData.append('acctid', 'v268oxi8ol3ycxc2');
+                formData.append('formid', '2006734');
                 formData.append('name', name);
                 formData.append('email', email);
                 formData.append('subject', subject);
@@ -288,7 +294,7 @@
                     method: 'POST',
                     body: formData
                 }).catch(err => {
-                    console.log('Form submitted');
+                    console.log('Form submitted to external service');
                 });
                 
                 contactForm.reset();
@@ -297,7 +303,49 @@
                 // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                showNotification('Please fill in all required fields.', 'error');
+                const emptyFields = [];
+                if (!name) emptyFields.push('name');
+                if (!email) emptyFields.push('email');
+                if (!subject) emptyFields.push('subject');
+                if (!message) emptyFields.push('message');
+                
+                showNotification(`Please fill in all required fields.`, 'error');
+                
+                if (!name) {
+                    const nameInput = document.getElementById('name');
+                    nameInput.classList.add('ring-2', 'ring-red-500');
+                    nameInput.addEventListener('input', function removeHighlight() {
+                        nameInput.classList.remove('ring-2', 'ring-red-500');
+                        nameInput.removeEventListener('input', removeHighlight);
+                    });
+                }
+                
+                if (!email) {
+                    const emailInput = document.getElementById('email');
+                    emailInput.classList.add('ring-2', 'ring-red-500');
+                    emailInput.addEventListener('input', function removeHighlight() {
+                        emailInput.classList.remove('ring-2', 'ring-red-500');
+                        emailInput.removeEventListener('input', removeHighlight);
+                    });
+                }
+                
+                if (!subject) {
+                    const subjectInput = document.getElementById('subject');
+                    subjectInput.classList.add('ring-2', 'ring-red-500');
+                    subjectInput.addEventListener('input', function removeHighlight() {
+                        subjectInput.classList.remove('ring-2', 'ring-red-500');
+                        subjectInput.removeEventListener('input', removeHighlight);
+                    });
+                }
+                
+                if (!message) {
+                    const messageInput = document.getElementById('message');
+                    messageInput.classList.add('ring-2', 'ring-red-500');
+                    messageInput.addEventListener('input', function removeHighlight() {
+                        messageInput.classList.remove('ring-2', 'ring-red-500');
+                        messageInput.removeEventListener('input', removeHighlight);
+                    });
+                }
             }
         });
 
