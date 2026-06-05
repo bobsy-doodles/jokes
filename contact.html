@@ -281,6 +281,7 @@
             if (name && email && subject && message) {
                 // Prepare form data for external service
                 const formData = new FormData();
+                formData.append('acctid', 'v268oxi8ol3ycxc2');
                 formData.append('name', name);
                 formData.append('email', email);
                 formData.append('subject', subject);
@@ -301,9 +302,52 @@
                 // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                showNotification('Please fill in all required fields.', 'error');
+                const emptyFields = [];
+                if (!name) emptyFields.push('name');
+                if (!email) emptyFields.push('email');
+                if (!subject) emptyFields.push('subject');
+                if (!message) emptyFields.push('message');
+                
+                showNotification(`Please fill in all required fields.`, 'error');
+                
+                if (!name) {
+                    const nameInput = document.getElementById('name');
+                    nameInput.classList.add('ring-2', 'ring-red-500');
+                    nameInput.addEventListener('input', function removeHighlight() {
+                        nameInput.classList.remove('ring-2', 'ring-red-500');
+                        nameInput.removeEventListener('input', removeHighlight);
+                    });
+                }
+                
+                if (!email) {
+                    const emailInput = document.getElementById('email');
+                    emailInput.classList.add('ring-2', 'ring-red-500');
+                    emailInput.addEventListener('input', function removeHighlight() {
+                        emailInput.classList.remove('ring-2', 'ring-red-500');
+                        emailInput.removeEventListener('input', removeHighlight);
+                    });
+                }
+                
+                if (!subject) {
+                    const subjectInput = document.getElementById('subject');
+                    subjectInput.classList.add('ring-2', 'ring-red-500');
+                    subjectInput.addEventListener('input', function removeHighlight() {
+                        subjectInput.classList.remove('ring-2', 'ring-red-500');
+                        subjectInput.removeEventListener('input', removeHighlight);
+                    });
+                }
+                
+                if (!message) {
+                    const messageInput = document.getElementById('message');
+                    messageInput.classList.add('ring-2', 'ring-red-500');
+                    messageInput.addEventListener('input', function removeHighlight() {
+                        messageInput.classList.remove('ring-2', 'ring-red-500');
+                        messageInput.removeEventListener('input', removeHighlight);
+                    });
+                }
             }
         });
+
 
         // FAQ details styling
         document.querySelectorAll('details').forEach(detail => {
