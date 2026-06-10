@@ -366,7 +366,7 @@
 
         let jokesData = [];
         let isAdminMode = false;
-        const adminPassword = process.env.ADMIN_PASS || "default-password";
+        const adminPassword = process.env.ADMIN_PASS;
 
         function initJokesData() {
             const savedJokes = localStorage.getItem('jokesData');
